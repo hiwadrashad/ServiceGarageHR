@@ -1,0 +1,93 @@
+﻿@using Shared.ViewModels
+@model ServiceViewModel
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #17a2b8;
+            color: white;
+        }
+</style>
+<form method="post">
+    @*<button type="submit">log in</button>*@
+    <button class="btn btn-info m-2" asp-action="AddBandenSpanning" type="submit" asp-controller="Services">Banden spanning</button>
+    <button class="btn btn-info m-2" asp-action="AddOlie" type="submit" asp-controller="Services">Olie</button>
+    <button class="btn btn-info m-2" asp-action="AddLichten" type="submit" asp-controller="Services">Lichten</button>
+    <button class="btn btn-info m-2" asp-action="AddComputer" type="submit" asp-controller="Services">Computer</button>
+    <button class="btn btn-info m-2" asp-action="AddAccu" type="submit" asp-controller="Services">Accu</button>
+    <button class="btn btn-info m-2" asp-action="AddMotor" type="submit" asp-controller="Services">Motor</button>
+
+    <button class="btn btn-info m-2" asp-action="AddExtraWassen" type="submit" asp-controller="Services">Wassen</button>
+    <button class="btn btn-info m-2" asp-action="AddExtraSchoonmaken" type="submit" asp-controller="Services">Schoonmaken</button>
+    <button class="btn btn-info m-2" asp-action="AddExtraWinterBanden" type="submit" asp-controller="Services">Winterbanden</button>
+    <br />
+    <label asp-for="@Model.CurrentService.ExterneDienst.ExterneDienstNaam" class="control-label"></label>
+    <input asp-for="@Model.CurrentService.ExterneDienst.ExterneDienstNaam" class="form-control" />
+    <label asp-for="@Model.CurrentService.ExterneDienst.Bedrijf" class="control-label"></label>
+    <input asp-for="@Model.CurrentService.ExterneDienst.Bedrijf" class="form-control" />
+    <button class="btn btn-info m-2" asp-action="AddExterneDienst" type="submit" asp-controller="Services">Externe dienst toevoegen</button>
+    <br />
+    <button class="btn btn-info m-2" asp-action="Clear" type="submit" asp-controller="Services">Clear</button>
+</form>
+
+<table id="customers">
+    <tr>
+        <th>Algemeen</th>
+        <th>Extra</th>
+        <th>Extern</th>
+        <th>Bedrijf</th>
+    </tr>
+
+    @foreach (var item in Model.PreviousChosenServices)
+    {
+        <tr>
+            @if (item.ServiceChosen)
+            {
+                <td>@item.Service</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (item.ExtraServiceChosen)
+            {
+                <td>@item.ExtraService</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (item.ExternalServiceChosen)
+            {
+                <td>@item.ExterneDienst.ExterneDienstNaam</td>
+                <td>@item.ExterneDienst.Bedrijf</td>
+            }
+            else
+            {
+                <td></td>
+                <td></td>
+            }
+            </tr>
+            }
+      
+    </table>
